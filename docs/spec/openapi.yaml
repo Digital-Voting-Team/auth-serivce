@@ -1,0 +1,8 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: auth-service
+  description: ''
+servers:
+  - url: 'https://api.demo.service.io'
+    description: Service Developer Environment
