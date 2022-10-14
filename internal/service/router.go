@@ -1,7 +1,7 @@
 package service
 
 import (
-	"auth-service/internal/service/handlers"
+	"github.com/Digital-Voting-Team/auth-serivce/internal/service/handlers"
 
 	"github.com/go-chi/chi"
 	"gitlab.com/distributed_lab/ape"

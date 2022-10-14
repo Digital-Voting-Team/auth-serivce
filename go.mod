@@ -1,4 +1,4 @@
-module auth-service
+module github.com/Digital-Voting-Team/auth-serivce
 
 go 1.19
 

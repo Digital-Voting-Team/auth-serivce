@@ -4,7 +4,7 @@ import (
 	"net"
 	"net/http"
 
-	"auth-service/internal/config"
+	"github.com/Digital-Voting-Team/auth-serivce/internal/config"
 
 	"gitlab.com/distributed_lab/kit/copus/types"
 	"gitlab.com/distributed_lab/logan/v3"
