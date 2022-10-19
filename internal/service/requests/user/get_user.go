@@ -9,19 +9,19 @@ import (
 	"gitlab.com/distributed_lab/urlval"
 )
 
-type GetAddressRequest struct {
-	AddressID int64 `url:"-"`
+type GetUserRequest struct {
+	UserID int64 `url:"-"`
 }
 
-func NewGetAddressRequest(r *http.Request) (GetAddressRequest, error) {
-	request := GetAddressRequest{}
+func NewGetUserRequest(r *http.Request) (GetUserRequest, error) {
+	request := GetUserRequest{}
 
 	err := urlval.Decode(r.URL.Query(), &request)
 	if err != nil {
 		return request, err
 	}
 
-	request.AddressID = cast.ToInt64(chi.URLParam(r, "id"))
+	request.UserID = cast.ToInt64(chi.URLParam(r, "id"))
 
 	return request, nil
 }
