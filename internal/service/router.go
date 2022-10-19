@@ -6,7 +6,7 @@ import (
 	reg "github.com/Digital-Voting-Team/auth-serivce/internal/service/handlers/register"
 	user "github.com/Digital-Voting-Team/auth-serivce/internal/service/handlers/user"
 	"github.com/Digital-Voting-Team/auth-serivce/internal/service/helpers"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/service/middleware"
+	"github.com/Digital-Voting-Team/auth-serivce/middleware"
 
 	"github.com/go-chi/chi"
 	"gitlab.com/distributed_lab/ape"
@@ -30,7 +30,7 @@ func (s *service) router() chi.Router {
 
 	r.Group(func(r chi.Router) {
 		r.Get("/login", login.LoginUser)
-		r.Post("/login", reg.RegisterUser)
+		r.Post("/register", reg.RegisterUser)
 	})
 
 	r.Group(func(r chi.Router) {

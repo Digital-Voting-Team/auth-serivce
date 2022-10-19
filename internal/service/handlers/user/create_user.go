@@ -4,8 +4,8 @@ import (
 	"github.com/Digital-Voting-Team/auth-serivce/internal/data"
 	"github.com/Digital-Voting-Team/auth-serivce/internal/service/helpers"
 	requests "github.com/Digital-Voting-Team/auth-serivce/internal/service/requests/user"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/utils"
 	"github.com/Digital-Voting-Team/auth-serivce/resources"
+	utils2 "github.com/Digital-Voting-Team/auth-serivce/utils"
 	"net/http"
 
 	"gitlab.com/distributed_lab/ape"
@@ -22,10 +22,10 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	var resultUser data.User
 
-	checkHash := utils.HashString(request.Data.Attributes.Username + request.Data.Attributes.Password + "CSCA")
+	checkHash := utils2.HashString(request.Data.Attributes.Username + request.Data.Attributes.Password + "CSCA")
 	user := data.User{
 		Username:         request.Data.Attributes.Username,
-		PasswordHashHint: utils.Hint(request.Data.Attributes.Password, 4),
+		PasswordHashHint: utils2.Hint(request.Data.Attributes.Password, 4),
 		CheckHash:        checkHash,
 	}
 

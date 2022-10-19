@@ -3,11 +3,11 @@ package handlers
 import (
 	"errors"
 	"github.com/Digital-Voting-Team/auth-serivce/internal/data"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/jwt"
 	"github.com/Digital-Voting-Team/auth-serivce/internal/service/helpers"
 	requests "github.com/Digital-Voting-Team/auth-serivce/internal/service/requests/login"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/utils"
+	"github.com/Digital-Voting-Team/auth-serivce/jwt"
 	"github.com/Digital-Voting-Team/auth-serivce/resources"
+	utils2 "github.com/Digital-Voting-Team/auth-serivce/utils"
 	"net/http"
 	"strconv"
 
@@ -23,10 +23,10 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	checkHash := utils.HashString(request.Data.Attributes.Username + request.Data.Attributes.Password + "CSCA")
+	checkHash := utils2.HashString(request.Data.Attributes.Username + request.Data.Attributes.Password + "CSCA")
 	user := data.User{
 		Username:         request.Data.Attributes.Username,
-		PasswordHashHint: utils.Hint(request.Data.Attributes.Password, 4),
+		PasswordHashHint: utils2.Hint(request.Data.Attributes.Password, 4),
 		CheckHash:        checkHash,
 	}
 

@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"errors"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/jwt"
 	"github.com/Digital-Voting-Team/auth-serivce/internal/service/helpers"
+	"github.com/Digital-Voting-Team/auth-serivce/jwt"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
 	"net/http"
