@@ -55,7 +55,6 @@ func (c *jwtsQ) Insert(jwt data.JWT) (data.JWT, error) {
 	clauses := structs.Map(jwt)
 	clauses["person_id"] = jwt.UserID
 	clauses["jwt"] = jwt.JWT
-	clauses["registration_date"] = jwt.ExpirationTime
 
 	var result data.JWT
 	stmt := sq.Insert(jwtsTableName).SetMap(clauses).Suffix("returning *")
@@ -69,7 +68,6 @@ func (c *jwtsQ) Update(jwt data.JWT) (data.JWT, error) {
 	clauses := structs.Map(jwt)
 	clauses["person_id"] = jwt.UserID
 	clauses["jwt"] = jwt.JWT
-	clauses["registration_date"] = jwt.ExpirationTime
 
 	err := c.db.Get(&result, c.sqlUpdate.SetMap(clauses))
 	return result, err

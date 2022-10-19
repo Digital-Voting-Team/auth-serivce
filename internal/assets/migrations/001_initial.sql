@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS public.jwt
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     user_id integer unique,
     jwt text,
-    expiration_time timestamp,
     CONSTRAINT jwt_id PRIMARY KEY (id),
     CONSTRAINT user_id FOREIGN KEY (user_id)
         REFERENCES public.user (id) MATCH SIMPLE
@@ -38,8 +37,8 @@ ALTER TABLE IF EXISTS public.jwt
     OWNER to postgres;
 
 INSERT INTO public.jwt(
-    user_id, jwt, expiration_time)
-VALUES (1, 'test_admin', '2028-12-02');
+    user_id, jwt)
+VALUES (1, 'test_admin');
 
 -- +migrate Down
 DROP TABLE IF EXISTS public.jwt;

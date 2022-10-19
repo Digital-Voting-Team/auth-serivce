@@ -21,11 +21,6 @@ allOf:
         type: object
         required:
           - jwt
-          - expiration_time
         properties:
           jwt:
             type: string
-          expiration_time:
-            type: string
-            format: time.Time
-            example: "2023-01-02T15:00:00Z"
