@@ -19,6 +19,7 @@ type JWTsQ interface {
 	Page(pageParams pgdb.OffsetPageParams) JWTsQ
 
 	FilterByID(ids ...int64) JWTsQ
+	FilterByJWT(jwt string) JWTsQ
 
 	JoinUser() JWTsQ
 }

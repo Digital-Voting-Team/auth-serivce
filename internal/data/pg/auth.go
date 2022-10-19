@@ -90,6 +90,11 @@ func (c *jwtsQ) FilterByID(ids ...int64) data.JWTsQ {
 	return c
 }
 
+func (c *jwtsQ) FilterByJWT(jwt string) data.JWTsQ {
+	c.sql = c.sql.Where(sq.Eq{"jwt": jwt})
+	return c
+}
+
 func (c *jwtsQ) JoinUser() data.JWTsQ {
 	stmt := fmt.Sprintf("%s as jwt on public.user.id = jwt.user_id",
 		jwtsTableName)
