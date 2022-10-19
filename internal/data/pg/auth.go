@@ -14,7 +14,7 @@ const jwtsTableName = "public.jwt"
 func NewJWTsQ(db *pgdb.DB) data.JWTsQ {
 	return &jwtsQ{
 		db:        db.Clone(),
-		sql:       sq.Select("jwt.*").From(jwtsTableName),
+		sql:       sq.Select("public.jwt.*").From(jwtsTableName),
 		sqlUpdate: sq.Update(jwtsTableName).Suffix("returning *"),
 	}
 }
@@ -53,7 +53,7 @@ func (c *jwtsQ) Transaction(fn func(q data.JWTsQ) error) error {
 
 func (c *jwtsQ) Insert(jwt data.JWT) (data.JWT, error) {
 	clauses := structs.Map(jwt)
-	clauses["person_id"] = jwt.UserID
+	clauses["user_id"] = jwt.UserID
 	clauses["jwt"] = jwt.JWT
 
 	var result data.JWT
@@ -66,7 +66,7 @@ func (c *jwtsQ) Insert(jwt data.JWT) (data.JWT, error) {
 func (c *jwtsQ) Update(jwt data.JWT) (data.JWT, error) {
 	var result data.JWT
 	clauses := structs.Map(jwt)
-	clauses["person_id"] = jwt.UserID
+	clauses["user_id"] = jwt.UserID
 	clauses["jwt"] = jwt.JWT
 
 	err := c.db.Get(&result, c.sqlUpdate.SetMap(clauses))
@@ -92,6 +92,7 @@ func (c *jwtsQ) FilterByID(ids ...int64) data.JWTsQ {
 
 func (c *jwtsQ) FilterByJWT(jwt string) data.JWTsQ {
 	c.sql = c.sql.Where(sq.Eq{"jwt": jwt})
+	c.sqlUpdate = c.sqlUpdate.Where(sq.Eq{"jwt": jwt})
 	return c
 }
 

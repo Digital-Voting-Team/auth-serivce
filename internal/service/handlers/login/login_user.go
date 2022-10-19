@@ -49,10 +49,20 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resultToken, err := helpers.JWTsQ(r).Insert(data.JWT{
+	jwtSample := data.JWT{
 		UserID: foundUser.ID,
 		JWT:    token,
-	})
+	}
+
+	resultToken, err := helpers.JWTsQ(r).Insert(jwtSample)
+	if resultToken.ID == 0 {
+		resultToken, err = helpers.JWTsQ(r).Update(jwtSample)
+	}
+	if err != nil {
+		helpers.Log(r).WithError(err).Error("failed to insert new token")
+		ape.RenderErr(w, problems.InternalError())
+		return
+	}
 
 	var includes resources.Included
 	includes.Add(&resources.User{

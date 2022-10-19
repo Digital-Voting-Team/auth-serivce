@@ -29,10 +29,17 @@ func BasicAuth() func(next http.Handler) http.Handler {
 
 func authJWT(r *http.Request) (bool, error) {
 	auth := r.Header.Get("Authorization")
+	spitted := strings.Fields(auth)
+	if len(spitted) > 1 {
+		if spitted[0] != "Bearer" || len(spitted) != 2 {
+			return false, errors.New("invalid auth string")
+		}
+		auth = spitted[1]
+	}
 	if auth == "" {
 		return false, errors.New("empty fields username (password)")
 	}
-	resultJwt, err := helpers.JWTsQ(r).FilterByJWT(strings.Fields(auth)[1]).Get()
+	resultJwt, err := helpers.JWTsQ(r).FilterByJWT(auth).Get()
 	if err != nil {
 		return false, errors.New("failed to get jwt by jwt string")
 	}
@@ -41,5 +48,5 @@ func authJWT(r *http.Request) (bool, error) {
 		return false, errors.New("failed to get user by id")
 	}
 
-	return jwt.ParseToken(auth, resultUser.PasswordHashHint)
+	return jwt.ParseToken(auth, resultUser.CheckHash)
 }

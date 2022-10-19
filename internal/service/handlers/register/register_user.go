@@ -31,14 +31,7 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 		CheckHash:        checkHash,
 	}
 
-	findUsername, err := helpers.UsersQ(r).FilterByUsername(user.Username).Get()
-	if err != nil {
-		helpers.Log(r).WithError(err).Error("failed to register user")
-		ape.RenderErr(w, problems.InternalError())
-		return
-	}
-
-	if findUsername != nil {
+	if findUsername, err := helpers.UsersQ(r).FilterByUsername(user.Username).Get(); findUsername != nil {
 		helpers.Log(r).WithError(err).Error("username already used")
 		ape.Render(w, problems.Conflict())
 		return

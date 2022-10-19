@@ -17,7 +17,7 @@ ALTER TABLE IF EXISTS public.user
 
 INSERT INTO public.user(
     username, password_hash_hint, check_hash)
-VALUES ('Derek', '4cbad12e', '296fd6d505f3ddf41f550a754a27541d754295fe1c125f7805e349f1d94d5330');
+VALUES ('Derek', 'stri', '3f19ed93169c7998255f9930daf0b30dfc0ed0f5b292ee3e8ed7ae9acf2f5cef');
 
 CREATE TABLE IF NOT EXISTS public.jwt
 (
@@ -36,9 +36,6 @@ CREATE TABLE IF NOT EXISTS public.jwt
 ALTER TABLE IF EXISTS public.jwt
     OWNER to postgres;
 
-INSERT INTO public.jwt(
-    user_id, jwt)
-VALUES (1, 'test_admin');
 
 -- +migrate Down
 DROP TABLE IF EXISTS public.jwt;

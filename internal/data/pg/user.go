@@ -14,7 +14,7 @@ const usersTableName = "public.user"
 func NewUsersQ(db *pgdb.DB) data.UsersQ {
 	return &usersQ{
 		db:        db.Clone(),
-		sql:       sq.Select("user.*").From(usersTableName),
+		sql:       sq.Select("public.user.*").From(usersTableName),
 		sqlUpdate: sq.Update(usersTableName).Suffix("returning *"),
 	}
 }
