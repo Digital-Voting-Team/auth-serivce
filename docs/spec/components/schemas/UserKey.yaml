@@ -1,0 +1,13 @@
+type: object
+required:
+  - id
+  - type
+properties:
+  id:
+    type: string
+    format: int64
+    example: "1"
+  type:
+    type: string
+    enum:
+      - user

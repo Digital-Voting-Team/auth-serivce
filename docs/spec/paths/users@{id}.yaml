@@ -1,0 +1,120 @@
+parameters:
+  - name: id
+    in: path
+    description: 'User identifier'
+    required: true
+    schema:
+      type: string
+      format: int64
+
+get:
+  tags:
+    - User
+  summary: Get User
+  description: 'Get user by id'
+  operationId: getUser
+  security:
+    - bearerAuth: [ ]
+  responses:
+    '200':
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/components/schemas/User'
+    '400':
+      description: Invalid request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '401':
+      description: Getting user is not allowed
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '404':
+      description: User not found
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to get user
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+put:
+  tags:
+    - User
+  summary: Update User
+  description: 'Update user by id'
+  operationId: updateUser
+  security:
+    - bearerAuth: [ ]
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/User'
+  responses:
+    '200':
+      description: User updated
+    '401':
+      description: Updating user is not allowed
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '404':
+      description: Invalid user id
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to get user or failed to mark user deleted
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+
+
+delete:
+  tags:
+    - User
+  summary: Delete User
+  description: 'Delete user by id'
+  operationId: deleteUser
+  security:
+    - bearerAuth: [ ]
+  responses:
+    '204':
+      description: User deleted
+    '401':
+      description: Deleting user is not allowed
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '404':
+      description: Invalid user id
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+    '500':
+      description: Failed to get user or failed to mark user deleted
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '#/components/schemas/Errors'
