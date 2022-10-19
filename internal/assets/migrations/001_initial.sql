@@ -7,7 +7,6 @@ CREATE TABLE IF NOT EXISTS public.user
     username character varying(45) UNIQUE NOT NULL ,
     password_hash_hint character varying(8) NOT NULL,
     check_hash character varying(128) NOT NULL ,
-    customer_id integer UNIQUE NOT NULL,
     CONSTRAINT user_id PRIMARY KEY (id)
 )
 
@@ -17,8 +16,8 @@ ALTER TABLE IF EXISTS public.user
     OWNER to postgres;
 
 INSERT INTO public.user(
-    username, password_hash_hint, check_hash, customer_id)
-VALUES ('Derek', '4cbad12e', '296fd6d505f3ddf41f550a754a27541d754295fe1c125f7805e349f1d94d5330', 1);
+    username, password_hash_hint, check_hash)
+VALUES ('Derek', '4cbad12e', '296fd6d505f3ddf41f550a754a27541d754295fe1c125f7805e349f1d94d5330');
 
 CREATE TABLE IF NOT EXISTS public.jwt
 (
@@ -37,6 +36,10 @@ CREATE TABLE IF NOT EXISTS public.jwt
 
 ALTER TABLE IF EXISTS public.jwt
     OWNER to postgres;
+
+INSERT INTO public.jwt(
+    user_id, jwt, expiration_time)
+VALUES (1, 'test_admin', '2028-12-02');
 
 -- +migrate Down
 DROP TABLE IF EXISTS public.jwt;
