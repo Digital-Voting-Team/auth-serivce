@@ -1,11 +1,14 @@
 log:
   disable_sentry: true
+  level: "info"
 
 db:
-  url: db_url
+#  url: "postgres://postgres:postgres@auth_db/postgres?sslmode=disable"
+# Uncomment to use locally:
+  url: "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable"
 
 listener:
-  addr: :8000
+  addr: :9110
 
 cop:
   disabled: true
