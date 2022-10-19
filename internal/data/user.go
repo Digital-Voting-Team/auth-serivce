@@ -10,8 +10,8 @@ type UsersQ interface {
 
 	Transaction(fn func(q UsersQ) error) error
 
-	Insert(address User) (User, error)
-	Update(address User) (User, error)
+	Insert(User) (User, error)
+	Update(User) (User, error)
 	Delete(id int64) error
 
 	Page(pageParams pgdb.OffsetPageParams) UsersQ
