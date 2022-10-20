@@ -13,7 +13,7 @@ import (
 func BasicAuth() func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			ok, err := authJWT(r)
+			ok, err := AuthJWT(r)
 			if err != nil || !ok {
 				if err == nil {
 					err = errors.New("invalid credentials")
@@ -27,7 +27,7 @@ func BasicAuth() func(next http.Handler) http.Handler {
 	}
 }
 
-func authJWT(r *http.Request) (bool, error) {
+func AuthJWT(r *http.Request) (bool, error) {
 	auth := r.Header.Get("Authorization")
 	spitted := strings.Fields(auth)
 	if len(spitted) > 1 {
