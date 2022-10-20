@@ -31,7 +31,8 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 		CheckHash:        checkHash,
 	}
 
-	if findUsername, err := helpers.UsersQ(r).FilterByUsername(user.Username).Get(); findUsername != nil {
+	findUser, err := helpers.UsersQ(r).FilterByUsername(user.Username).Get()
+	if findUser != nil {
 		helpers.Log(r).WithError(err).Error("username already used")
 		ape.Render(w, problems.Conflict())
 		return
@@ -51,11 +52,23 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	jwtSample := data.JWT{
+		UserID: resultUser.ID,
+		JWT:    token,
+	}
+
+	resultToken, err := helpers.JWTsQ(r).Insert(jwtSample)
+	if err != nil {
+		helpers.Log(r).WithError(err).Error("failed to insert new token")
+		ape.RenderErr(w, problems.InternalError())
+		return
+	}
+
 	result := resources.JwtResponse{
 		Data: resources.Jwt{
-			Key: resources.NewKeyInt64(resultUser.ID, resources.JWT),
+			Key: resources.NewKeyInt64(resultToken.ID, resources.JWT),
 			Attributes: resources.JwtAttributes{
-				Jwt: token,
+				Jwt: resultToken.JWT,
 			},
 			Relationships: resources.JwtRelationships{
 				User: resources.Relation{
