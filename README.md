@@ -17,7 +17,7 @@ This project is licensed under the [MIT] License - see the LICENSE.md file for d
 
 ## Thanks 
 
-** I just wanna thank Distributed Lab for everything. Thank you, you are the best! **
+**I just wanna thank Distributed Lab for everything. Thank you, you are the best!**
 
 * [TokenD](https://tokend.io/)
 * [TokenD GitLab](https://gitlab.com/tokend/)
