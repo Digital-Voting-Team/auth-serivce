@@ -1,0 +1,248 @@
+{
+	"info": {
+		"_postman_id": "91172023-d31f-4fef-b28d-1275ba4a0c3f",
+		"name": "Auth-SVC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23100734"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get user list via token",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6IkRlcmVrIiwiZXhwIjoxNjY2MzA2NDE0fQ.u1aKiy4dudYYUwzZ50EM2rcjnd8oGMQUT9dK0FheZys",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"id\": \"1\",\n        \"type\": \"user\",\n        \"attributes\": {\n            \"username\": \"Alex2111\",\n            \"password\": \"string1111\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{users}}",
+							"host": [
+								"{{users}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6IkRlcmVrIiwiZXhwIjoxNjY2MzA2NDE0fQ.u1aKiy4dudYYUwzZ50EM2rcjnd8oGMQUT9dK0FheZys",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"id\": \"1\",\n        \"type\": \"user\",\n        \"attributes\": {\n            \"username\": \"Bob22\",\n            \"password\": \"string22\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{users}}",
+							"host": [
+								"{{users}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6IkRlcmVrIiwiZXhwIjoxNjY2MzA2NDE0fQ.u1aKiy4dudYYUwzZ50EM2rcjnd8oGMQUT9dK0FheZys",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{users}}/1",
+							"host": [
+								"{{users}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user by id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6IkRlcmVrIiwiZXhwIjoxNjY2MzA2NDE0fQ.u1aKiy4dudYYUwzZ50EM2rcjnd8oGMQUT9dK0FheZys",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"id\": \"1\",\n    \"type\": \"user\",\n    \"attributes\": {\n      \"username\": \"Alexss\",\n      \"password\": \"stringss\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{users}}/2",
+							"host": [
+								"{{users}}"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6IkRlcmVrIiwiZXhwIjoxNjY2MzA2NDE0fQ.u1aKiy4dudYYUwzZ50EM2rcjnd8oGMQUT9dK0FheZys",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6IkRlcmVrIiwiZXhwIjoxNjY2MzA2NDE0fQ.u1aKiy4dudYYUwzZ50EM2rcjnd8oGMQUT9dK0FheZys",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{users}}/2",
+							"host": [
+								"{{users}}"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VybmFtZSI6IkRlcmVrIiwiZXhwIjoxNjY2MzA2NDE0fQ.u1aKiy4dudYYUwzZ50EM2rcjnd8oGMQUT9dK0FheZys",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"id\": \"1\",\n        \"type\": \"user\",\n        \"attributes\": {\n            \"username\": \"AlexDef\",\n            \"password\": \"string\"\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{register}}",
+					"host": [
+						"{{register}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"id\": \"1\",\n        \"type\": \"user\",\n        \"attributes\": {\n            \"username\": \"Derek\",\n            \"password\": \"string\"\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{login}}",
+					"host": [
+						"{{login}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
