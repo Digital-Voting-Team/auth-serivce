@@ -7,6 +7,7 @@ require (
 	github.com/alecthomas/kingpin v2.2.6+incompatible
 	github.com/fatih/structs v1.1.0
 	github.com/go-chi/chi v4.1.2+incompatible
+	github.com/go-chi/cors v1.2.1
 	github.com/go-ozzo/ozzo-validation/v4 v4.2.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/rubenv/sql-migrate v1.2.0
