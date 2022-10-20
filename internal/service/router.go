@@ -2,6 +2,7 @@ package service
 
 import (
 	"github.com/Digital-Voting-Team/auth-serivce/internal/data/pg"
+	"github.com/Digital-Voting-Team/auth-serivce/internal/service/handlers/jwt"
 	login "github.com/Digital-Voting-Team/auth-serivce/internal/service/handlers/login"
 	reg "github.com/Digital-Voting-Team/auth-serivce/internal/service/handlers/register"
 	user "github.com/Digital-Voting-Team/auth-serivce/internal/service/handlers/user"
@@ -30,6 +31,7 @@ func (s *service) router() chi.Router {
 
 	r.Group(func(r chi.Router) {
 		r.Get("/login", login.LoginUser)
+		r.Get("/jwt/login", jwt.LoginJWT)
 		r.Post("/register", reg.RegisterUser)
 	})
 
