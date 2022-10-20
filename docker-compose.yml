@@ -1,13 +1,13 @@
 version: '3.3'
 
 services:
-  auth-service:
+  auth_service:
     restart: unless-stopped
     build: .
     ports:
       - "9110:9110"
     depends_on:
-      - auth-db
+      - auth_db
     environment:
       - KV_VIPER_FILE=/config.yaml
     volumes:
@@ -15,7 +15,7 @@ services:
     command: run service
 
 
-  auth-db:
+  auth_db:
     image: postgres
     restart: always
     expose:
