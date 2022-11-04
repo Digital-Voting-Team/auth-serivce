@@ -66,7 +66,6 @@ func (c *jwtsQ) Insert(jwt data.JWT) (data.JWT, error) {
 func (c *jwtsQ) Update(jwt data.JWT) (data.JWT, error) {
 	var result data.JWT
 	clauses := structs.Map(jwt)
-	clauses["user_id"] = jwt.UserID
 	clauses["jwt"] = jwt.JWT
 
 	err := c.db.Get(&result, c.sqlUpdate.SetMap(clauses))
@@ -85,6 +84,12 @@ func (c *jwtsQ) Page(pageParams pgdb.OffsetPageParams) data.JWTsQ {
 }
 
 func (c *jwtsQ) FilterByID(ids ...int64) data.JWTsQ {
+	c.sql = c.sql.Where(sq.Eq{"id": ids})
+	c.sqlUpdate = c.sqlUpdate.Where(sq.Eq{"id": ids})
+	return c
+}
+
+func (c *jwtsQ) FilterByUserID(ids ...int64) data.JWTsQ {
 	c.sql = c.sql.Where(sq.Eq{"id": ids})
 	c.sqlUpdate = c.sqlUpdate.Where(sq.Eq{"id": ids})
 	return c
