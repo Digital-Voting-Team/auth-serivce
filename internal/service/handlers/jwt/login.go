@@ -6,6 +6,7 @@ import (
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
 	"net/http"
+	"strconv"
 )
 
 func LoginJWT(w http.ResponseWriter, r *http.Request) {
@@ -20,6 +21,14 @@ func LoginJWT(w http.ResponseWriter, r *http.Request) {
 			Key: resources.NewKeyInt64(token.ID, resources.JWT),
 			Attributes: resources.JwtAttributes{
 				Jwt: token.JWT,
+			},
+			Relationships: resources.JwtRelationships{
+				User: resources.Relation{
+					Data: &resources.Key{
+						ID:   strconv.FormatInt(token.UserID, 10),
+						Type: resources.USER,
+					},
+				},
 			},
 		},
 	}
