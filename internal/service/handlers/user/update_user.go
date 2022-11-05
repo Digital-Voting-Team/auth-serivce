@@ -33,6 +33,13 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		CheckHash:        checkHash,
 	}
 
+	userId := r.Context().Value("userId").(int64)
+	if userId != user.ID {
+		helpers.Log(r).Info("invalid user")
+		ape.RenderErr(w, problems.Forbidden())
+		return
+	}
+
 	var resultUser data.User
 	resultUser, err = helpers.UsersQ(r).FilterByID(user.ID).Update(newUser)
 	if err != nil {
@@ -49,5 +56,6 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 			},
 		},
 	}
+
 	ape.Render(w, result)
 }

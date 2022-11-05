@@ -8,11 +8,9 @@ import (
 	"github.com/Digital-Voting-Team/auth-serivce/jwt"
 	"github.com/Digital-Voting-Team/auth-serivce/resources"
 	utils2 "github.com/Digital-Voting-Team/auth-serivce/utils"
-	"net/http"
-	"strconv"
-
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
+	"net/http"
 )
 
 func LoginUser(w http.ResponseWriter, r *http.Request) {
@@ -42,7 +40,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, err := jwt.CreateToken(foundUser.Username, foundUser.CheckHash)
+	token, err := jwt.CreateToken(foundUser.Username, foundUser.CheckHash, foundUser.ID)
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to create token")
 		ape.RenderErr(w, problems.InternalError())
@@ -67,30 +65,13 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var includes resources.Included
-	includes.Add(&resources.User{
-		Key: resources.NewKeyInt64(foundUser.ID, resources.USER),
-		Attributes: resources.UserAttributes{
-			Username: foundUser.Username,
-		},
-	})
-
 	result := resources.JwtResponse{
 		Data: resources.Jwt{
 			Key: resources.NewKeyInt64(resultToken.ID, resources.JWT),
 			Attributes: resources.JwtAttributes{
 				Jwt: resultToken.JWT,
 			},
-			Relationships: resources.JwtRelationships{
-				User: resources.Relation{
-					Data: &resources.Key{
-						ID:   strconv.FormatInt(foundUser.ID, 10),
-						Type: resources.USER,
-					},
-				},
-			},
 		},
-		Included: includes,
 	}
 
 	ape.Render(w, result)

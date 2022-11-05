@@ -1,7 +1,7 @@
 version: '3.3'
 
 services:
-  auth_service:
+  auth-service:
     restart: unless-stopped
     build: .
     ports:
@@ -12,7 +12,7 @@ services:
       - KV_VIPER_FILE=/config.yaml
     volumes:
       - ./config.yaml:/config.yaml
-    command: run service
+    entrypoint: sh -c "auth-service migrate up && auth-service run service"
 
 
   auth_db:

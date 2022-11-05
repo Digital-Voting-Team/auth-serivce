@@ -7,11 +7,9 @@ import (
 	"github.com/Digital-Voting-Team/auth-serivce/jwt"
 	"github.com/Digital-Voting-Team/auth-serivce/resources"
 	utils2 "github.com/Digital-Voting-Team/auth-serivce/utils"
-	"net/http"
-	"strconv"
-
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
+	"net/http"
 )
 
 func RegisterUser(w http.ResponseWriter, r *http.Request) {
@@ -45,7 +43,7 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, err := jwt.CreateToken(resultUser.Username, resultUser.CheckHash)
+	token, err := jwt.CreateToken(resultUser.Username, resultUser.CheckHash, resultUser.ID)
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to create token")
 		ape.RenderErr(w, problems.InternalError())
@@ -69,14 +67,6 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 			Key: resources.NewKeyInt64(resultToken.ID, resources.JWT),
 			Attributes: resources.JwtAttributes{
 				Jwt: resultToken.JWT,
-			},
-			Relationships: resources.JwtRelationships{
-				User: resources.Relation{
-					Data: &resources.Key{
-						ID:   strconv.FormatInt(resultUser.ID, 10),
-						Type: resources.USER,
-					},
-				},
 			},
 		},
 	}
