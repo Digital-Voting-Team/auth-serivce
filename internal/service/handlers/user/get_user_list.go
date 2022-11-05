@@ -12,6 +12,12 @@ import (
 )
 
 func GetUserList(w http.ResponseWriter, r *http.Request) {
+	userId := r.Context().Value("userId").(int64)
+	if userId != 1 {
+		helpers.Log(r).Info("insufficient user permissions")
+		ape.RenderErr(w, problems.Forbidden())
+		return
+	}
 	request, err := requests.NewGetUserListRequest(r)
 	if err != nil {
 		ape.RenderErr(w, problems.BadRequest(err)...)
