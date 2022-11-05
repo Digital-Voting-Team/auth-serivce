@@ -43,11 +43,11 @@ func baseJWTCheck(r *http.Request) (string, *data.JWT, *data.User, error) {
 		return "", nil, nil, errors.New("empty fields username (password)")
 	}
 	resultJwt, err := helpers.JWTsQ(r).FilterByJWT(auth).Get()
-	if err != nil {
+	if err != nil || resultJwt == nil {
 		return "", nil, nil, errors.New("failed to get jwt by jwt string")
 	}
 	resultUser, err := helpers.UsersQ(r).FilterByID(resultJwt.UserID).Get()
-	if err != nil {
+	if err != nil || resultUser == nil {
 		return "", nil, nil, errors.New("failed to get user by id")
 	}
 	return auth, resultJwt, resultUser, nil
