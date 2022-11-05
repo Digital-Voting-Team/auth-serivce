@@ -9,7 +9,7 @@ import (
 )
 
 func LoginJWT(w http.ResponseWriter, r *http.Request) {
-	token, ok, err := middleware.AuthJWT(r)
+	token, ok, err := middleware.AuthDataJWT(r)
 	if !ok || err != nil {
 		ape.Render(w, problems.BadRequest(err))
 		return
