@@ -13,6 +13,7 @@ import (
 )
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
+	userId := r.Context().Value("userId").(int64)
 	request, err := requests.NewCreateUserRequest(r)
 	if err != nil {
 		helpers.Log(r).WithError(err).Info("wrong request")

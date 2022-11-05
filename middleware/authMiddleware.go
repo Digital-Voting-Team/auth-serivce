@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"context"
 	"errors"
 	"github.com/Digital-Voting-Team/auth-serivce/internal/data"
 	"github.com/Digital-Voting-Team/auth-serivce/internal/service/helpers"
@@ -14,7 +15,7 @@ import (
 func BasicAuth() func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			_, ok, err := AuthJWT(r)
+			token, ok, err := AuthJWT(r)
 			if err != nil || !ok {
 				if err == nil {
 					err = errors.New("invalid credentials")
@@ -22,8 +23,9 @@ func BasicAuth() func(next http.Handler) http.Handler {
 				ape.Render(w, problems.BadRequest(err))
 				return
 			}
+			ctx := context.WithValue(r.Context(), "userId", token.UserID)
 
-			next.ServeHTTP(w, r)
+			next.ServeHTTP(w, r.WithContext(ctx))
 		})
 	}
 }
@@ -48,7 +50,7 @@ func AuthJWT(r *http.Request) (*data.JWT, bool, error) {
 	if err != nil {
 		return nil, false, errors.New("failed to get user by id")
 	}
-	ok, err := jwt.ParseToken(auth, resultUser.CheckHash)
+	ok, _, err := jwt.ParseToken(auth, resultUser.CheckHash)
 
 	return resultJwt, ok, err
 }
