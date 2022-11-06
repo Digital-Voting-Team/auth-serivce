@@ -10,6 +10,7 @@ import (
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
 	"net/http"
+	"strconv"
 )
 
 func RegisterUser(w http.ResponseWriter, r *http.Request) {
@@ -72,6 +73,14 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 			Key: resources.NewKeyInt64(resultToken.ID, resources.JWT),
 			Attributes: resources.JwtAttributes{
 				Jwt: resultToken.JWT,
+			},
+			Relationships: resources.JwtRelationships{
+				User: resources.Relation{
+					Data: &resources.Key{
+						ID:   strconv.FormatInt(resultToken.UserID, 10),
+						Type: resources.USER,
+					},
+				},
 			},
 		},
 	}

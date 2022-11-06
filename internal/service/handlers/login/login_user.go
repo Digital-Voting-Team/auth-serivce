@@ -7,10 +7,11 @@ import (
 	requests "github.com/Digital-Voting-Team/auth-serivce/internal/service/requests/login"
 	"github.com/Digital-Voting-Team/auth-serivce/jwt"
 	"github.com/Digital-Voting-Team/auth-serivce/resources"
-	utils2 "github.com/Digital-Voting-Team/auth-serivce/utils"
+	"github.com/Digital-Voting-Team/auth-serivce/utils"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
 	"net/http"
+	"strconv"
 )
 
 func LoginUser(w http.ResponseWriter, r *http.Request) {
@@ -21,10 +22,10 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	checkHash := utils2.HashString(request.Data.Attributes.Username + request.Data.Attributes.Password + "CSCA")
+	checkHash := utils.HashString(request.Data.Attributes.Username + request.Data.Attributes.Password + "CSCA")
 	user := data.User{
 		Username:         request.Data.Attributes.Username,
-		PasswordHashHint: utils2.Hint(request.Data.Attributes.Password, 4),
+		PasswordHashHint: utils.Hint(request.Data.Attributes.Password, 4),
 		CheckHash:        checkHash,
 	}
 
@@ -80,6 +81,14 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 			Key: resources.NewKeyInt64(resultToken.ID, resources.JWT),
 			Attributes: resources.JwtAttributes{
 				Jwt: resultToken.JWT,
+			},
+			Relationships: resources.JwtRelationships{
+				User: resources.Relation{
+					Data: &resources.Key{
+						ID:   strconv.FormatInt(resultToken.UserID, 10),
+						Type: resources.USER,
+					},
+				},
 			},
 		},
 	}
