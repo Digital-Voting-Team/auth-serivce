@@ -16,8 +16,8 @@ import (
 func LoginUser(w http.ResponseWriter, r *http.Request) {
 	request, err := requests.NewLoginUserRequest(r)
 	if err != nil {
-		helpers.Log(r).WithError(err).Info("wrong request")
-		ape.RenderErr(w, problems.BadRequest(err)...)
+		helpers.Log(r).WithError(err).Info("failed to parse Login User Request")
+		ape.Render(w, problems.BadRequest(err))
 		return
 	}
 
@@ -30,8 +30,13 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 
 	foundUser, err := helpers.UsersQ(r).FilterByUsername(user.Username).Get()
 	if err != nil {
-		helpers.Log(r).WithError(err).Error("failed to Login user")
+		helpers.Log(r).WithError(err).Error("failed to find user by it's username")
 		ape.RenderErr(w, problems.InternalError())
+		return
+	}
+	if foundUser == nil {
+		helpers.Log(r).WithError(err).Error("there is no such user with username: " + user.Username)
+		ape.Render(w, problems.NotFound())
 		return
 	}
 
@@ -40,7 +45,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, err := jwt.CreateToken(foundUser.Username, foundUser.CheckHash, foundUser.ID)
+	token, err := jwt.CreateToken(foundUser.CheckHash, foundUser.ID)
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to create token")
 		ape.RenderErr(w, problems.InternalError())
@@ -54,6 +59,11 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 
 	var resultToken data.JWT
 	checkUser, err := helpers.JWTsQ(r).FilterByUserID(foundUser.ID).Get()
+	if err != nil {
+		helpers.Log(r).WithError(err).Error("failed to get jwt by the user Id")
+		ape.RenderErr(w, problems.InternalError())
+		return
+	}
 	if checkUser != nil && checkUser.ID != 0 {
 		resultToken, err = helpers.JWTsQ(r).FilterByUserID(foundUser.ID).Update(jwtSample)
 	} else {

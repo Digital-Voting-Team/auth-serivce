@@ -19,8 +19,8 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	}
 	request, err := requests.NewGetUserRequest(r)
 	if err != nil {
-		helpers.Log(r).WithError(err).Info("wrong request")
-		ape.RenderErr(w, problems.BadRequest(err)...)
+		helpers.Log(r).WithError(err).Info("failed to Parse Get User Request")
+		ape.Render(w, problems.BadRequest(err))
 		return
 	}
 
@@ -31,6 +31,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if user == nil {
+		helpers.Log(r).Error("user == nil (get)")
 		ape.Render(w, problems.NotFound())
 		return
 	}

@@ -18,9 +18,11 @@ func GetUserList(w http.ResponseWriter, r *http.Request) {
 		ape.RenderErr(w, problems.Forbidden())
 		return
 	}
+
 	request, err := requests.NewGetUserListRequest(r)
 	if err != nil {
-		ape.RenderErr(w, problems.BadRequest(err)...)
+		helpers.Log(r).WithError(err).Info("failed to Parse Get User List Request")
+		ape.Render(w, problems.BadRequest(err))
 		return
 	}
 

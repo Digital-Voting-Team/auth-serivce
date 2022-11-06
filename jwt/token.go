@@ -1,8 +1,8 @@
 package jwt
 
 import (
-	"errors"
 	"github.com/golang-jwt/jwt"
+	"github.com/pkg/errors"
 	"time"
 )
 
@@ -11,7 +11,7 @@ type UserClaims struct {
 	jwt.StandardClaims
 }
 
-func CreateToken(username, password string, userId int64) (string, error) {
+func CreateToken(password string, userId int64) (string, error) {
 	claims := UserClaims{
 		userId,
 		jwt.StandardClaims{
@@ -27,6 +27,9 @@ func ParseToken(tokenString, password string) (bool, int64, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &UserClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(password), nil
 	})
+	if err != nil {
+		return false, -1, errors.Wrap(err, "failed to parse token with claims")
+	}
 
 	if claims, ok := token.Claims.(*UserClaims); ok && token.Valid {
 		if claims.ExpiresAt < time.Now().Unix() {
@@ -34,6 +37,6 @@ func ParseToken(tokenString, password string) (bool, int64, error) {
 		}
 		return true, claims.UserId, nil
 	} else {
-		return false, -1, err
+		return false, -1, errors.Wrap(err, "failed to cast token claims and validate token")
 	}
 }

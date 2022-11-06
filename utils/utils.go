@@ -5,6 +5,13 @@ import (
 	"encoding/hex"
 )
 
+func Hint(s string, size int) string {
+	if len([]rune(s)) < size {
+		return s
+	}
+	return string([]rune(s)[0:size])
+}
+
 func HashString(input string) string {
 	hash := sha256.New()
 

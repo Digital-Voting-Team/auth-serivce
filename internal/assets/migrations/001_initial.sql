@@ -15,10 +15,6 @@ CREATE TABLE IF NOT EXISTS public.user
 ALTER TABLE IF EXISTS public.user
     OWNER to postgres;
 
-INSERT INTO public.user(
-    username, password_hash_hint, check_hash)
-VALUES ('Derek', 'stri', '3f19ed93169c7998255f9930daf0b30dfc0ed0f5b292ee3e8ed7ae9acf2f5cef');
-
 CREATE TABLE IF NOT EXISTS public.jwt
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),

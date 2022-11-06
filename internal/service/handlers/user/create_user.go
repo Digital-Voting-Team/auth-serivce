@@ -22,8 +22,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	request, err := requests.NewCreateUserRequest(r)
 	if err != nil {
-		helpers.Log(r).WithError(err).Info("wrong request")
-		ape.RenderErr(w, problems.BadRequest(err)...)
+		helpers.Log(r).WithError(err).Info("failed to parse Create User Request")
+		ape.Render(w, problems.BadRequest(err))
 		return
 	}
 

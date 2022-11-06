@@ -15,13 +15,14 @@ import (
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	request, err := requests.NewUpdateUserRequest(r)
 	if err != nil {
-		helpers.Log(r).WithError(err).Info("wrong request")
-		ape.RenderErr(w, problems.BadRequest(err)...)
+		helpers.Log(r).WithError(err).Info("failed to Parse Update User Request")
+		ape.Render(w, problems.BadRequest(err))
 		return
 	}
 
 	user, err := helpers.UsersQ(r).FilterByID(request.UserID).Get()
 	if user == nil {
+		helpers.Log(r).Error("user == nil (update)")
 		ape.Render(w, problems.NotFound())
 		return
 	}

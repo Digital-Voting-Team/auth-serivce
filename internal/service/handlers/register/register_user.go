@@ -6,7 +6,7 @@ import (
 	requests "github.com/Digital-Voting-Team/auth-serivce/internal/service/requests/register"
 	"github.com/Digital-Voting-Team/auth-serivce/jwt"
 	"github.com/Digital-Voting-Team/auth-serivce/resources"
-	utils2 "github.com/Digital-Voting-Team/auth-serivce/utils"
+	"github.com/Digital-Voting-Team/auth-serivce/utils"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
 	"net/http"
@@ -15,35 +15,40 @@ import (
 func RegisterUser(w http.ResponseWriter, r *http.Request) {
 	request, err := requests.NewRegisterUserRequest(r)
 	if err != nil {
-		helpers.Log(r).WithError(err).Info("wrong request")
-		ape.RenderErr(w, problems.BadRequest(err)...)
+		helpers.Log(r).WithError(err).Info("failed to parse Register User Request")
+		ape.Render(w, problems.BadRequest(err))
 		return
 	}
 
 	var resultUser data.User
 
-	checkHash := utils2.HashString(request.Data.Attributes.Username + request.Data.Attributes.Password + "CSCA")
+	checkHash := utils.HashString(request.Data.Attributes.Username + request.Data.Attributes.Password + "CSCA")
 	user := data.User{
 		Username:         request.Data.Attributes.Username,
-		PasswordHashHint: utils2.Hint(request.Data.Attributes.Password, 4),
+		PasswordHashHint: utils.Hint(request.Data.Attributes.Password, 4),
 		CheckHash:        checkHash,
 	}
 
 	findUser, err := helpers.UsersQ(r).FilterByUsername(user.Username).Get()
+	if err != nil {
+		helpers.Log(r).WithError(err).Error("failed to find user by it's username")
+		ape.RenderErr(w, problems.InternalError())
+		return
+	}
 	if findUser != nil {
-		helpers.Log(r).WithError(err).Error("username already used")
+		helpers.Log(r).Error("username already used")
 		ape.Render(w, problems.Conflict())
 		return
 	}
 
 	resultUser, err = helpers.UsersQ(r).Insert(user)
 	if err != nil {
-		helpers.Log(r).WithError(err).Error("failed to register user")
+		helpers.Log(r).WithError(err).Error("failed to insert user (register)")
 		ape.RenderErr(w, problems.InternalError())
 		return
 	}
 
-	token, err := jwt.CreateToken(resultUser.Username, resultUser.CheckHash, resultUser.ID)
+	token, err := jwt.CreateToken(resultUser.CheckHash, resultUser.ID)
 	if err != nil {
 		helpers.Log(r).WithError(err).Error("failed to create token")
 		ape.RenderErr(w, problems.InternalError())
@@ -57,7 +62,7 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 
 	resultToken, err := helpers.JWTsQ(r).Insert(jwtSample)
 	if err != nil {
-		helpers.Log(r).WithError(err).Error("failed to insert new token")
+		helpers.Log(r).WithError(err).Error("failed to insert new token (register)")
 		ape.RenderErr(w, problems.InternalError())
 		return
 	}
@@ -70,5 +75,6 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 			},
 		},
 	}
+
 	ape.Render(w, result)
 }

@@ -1,7 +1,8 @@
 package jwt
 
 import (
-	"github.com/Digital-Voting-Team/auth-serivce/middleware"
+	"errors"
+	"github.com/Digital-Voting-Team/auth-serivce/internal/service/helpers"
 	"github.com/Digital-Voting-Team/auth-serivce/resources"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
@@ -10,9 +11,15 @@ import (
 )
 
 func LoginJWT(w http.ResponseWriter, r *http.Request) {
-	token, ok, err := middleware.AuthDataJWT(r)
-	if !ok || err != nil {
+	token, ok, err := helpers.AuthJWT(r)
+	if err != nil {
+		helpers.Log(r).WithError(err).Error("failed to Auth JWT in handler")
 		ape.Render(w, problems.BadRequest(err))
+		return
+	}
+	if !ok {
+		helpers.Log(r).Error("JWT is invalid in handler")
+		ape.Render(w, problems.BadRequest(errors.New("invalid JWT")))
 		return
 	}
 
