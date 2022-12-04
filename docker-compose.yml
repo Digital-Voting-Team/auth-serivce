@@ -7,7 +7,7 @@ services:
     ports:
       - "9110:9110"
     depends_on:
-      - auth_db
+      - auth-db
     environment:
       - KV_VIPER_FILE=/config.yaml
     volumes:
@@ -15,7 +15,7 @@ services:
     entrypoint: sh -c "auth-service migrate up && auth-service run service"
 
 
-  auth_db:
+  auth-db:
     image: postgres
     restart: always
     expose:
@@ -34,7 +34,7 @@ services:
     image: postgres
     restart: always
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
