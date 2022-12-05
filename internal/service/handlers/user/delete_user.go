@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"github.com/Digital-Voting-Team/auth-serivce/internal/service/helpers"
-	requests "github.com/Digital-Voting-Team/auth-serivce/internal/service/requests/user"
+	"github.com/Digital-Voting-Team/auth-service/internal/service/helpers"
+	requests "github.com/Digital-Voting-Team/auth-service/internal/service/requests/user"
 	"net/http"
 
 	"gitlab.com/distributed_lab/ape"

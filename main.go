@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/Digital-Voting-Team/auth-serivce/internal/cli"
+	"github.com/Digital-Voting-Team/auth-service/internal/cli"
 )
 
 func main() {

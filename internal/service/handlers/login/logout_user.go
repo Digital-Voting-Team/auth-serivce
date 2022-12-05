@@ -2,9 +2,9 @@ package handlers
 
 import (
 	"errors"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/data"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/service/helpers"
-	requests "github.com/Digital-Voting-Team/auth-serivce/internal/service/requests/login"
+	"github.com/Digital-Voting-Team/auth-service/internal/data"
+	"github.com/Digital-Voting-Team/auth-service/internal/service/helpers"
+	requests "github.com/Digital-Voting-Team/auth-service/internal/service/requests/login"
 	validation "github.com/go-ozzo/ozzo-validation/v4"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"

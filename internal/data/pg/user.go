@@ -2,7 +2,7 @@ package pg
 
 import (
 	"database/sql"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/data"
+	"github.com/Digital-Voting-Team/auth-service/internal/data"
 	"gitlab.com/distributed_lab/kit/pgdb"
 
 	sq "github.com/Masterminds/squirrel"

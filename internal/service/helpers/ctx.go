@@ -2,7 +2,7 @@ package helpers
 
 import (
 	"context"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/data"
+	"github.com/Digital-Voting-Team/auth-service/internal/data"
 	"net/http"
 
 	"gitlab.com/distributed_lab/logan/v3"

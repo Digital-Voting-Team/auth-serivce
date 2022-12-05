@@ -3,7 +3,7 @@ package middleware
 import (
 	"context"
 	"errors"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/service/helpers"
+	"github.com/Digital-Voting-Team/auth-service/internal/service/helpers"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
 	"net/http"

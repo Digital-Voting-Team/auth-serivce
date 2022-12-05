@@ -3,7 +3,7 @@ package pg
 import (
 	"database/sql"
 	"fmt"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/data"
+	"github.com/Digital-Voting-Team/auth-service/internal/data"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/fatih/structs"
 	"gitlab.com/distributed_lab/kit/pgdb"

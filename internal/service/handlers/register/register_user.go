@@ -1,12 +1,12 @@
 package handlers
 
 import (
-	"github.com/Digital-Voting-Team/auth-serivce/internal/data"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/service/helpers"
-	requests "github.com/Digital-Voting-Team/auth-serivce/internal/service/requests/register"
-	"github.com/Digital-Voting-Team/auth-serivce/jwt"
-	"github.com/Digital-Voting-Team/auth-serivce/resources"
-	"github.com/Digital-Voting-Team/auth-serivce/utils"
+	"github.com/Digital-Voting-Team/auth-service/internal/data"
+	"github.com/Digital-Voting-Team/auth-service/internal/service/helpers"
+	requests "github.com/Digital-Voting-Team/auth-service/internal/service/requests/register"
+	"github.com/Digital-Voting-Team/auth-service/jwt"
+	"github.com/Digital-Voting-Team/auth-service/resources"
+	"github.com/Digital-Voting-Team/auth-service/utils"
 	"gitlab.com/distributed_lab/ape"
 	"gitlab.com/distributed_lab/ape/problems"
 	"net/http"

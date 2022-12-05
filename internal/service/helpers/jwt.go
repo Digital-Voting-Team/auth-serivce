@@ -1,8 +1,8 @@
 package helpers
 
 import (
-	"github.com/Digital-Voting-Team/auth-serivce/internal/data"
-	"github.com/Digital-Voting-Team/auth-serivce/jwt"
+	"github.com/Digital-Voting-Team/auth-service/internal/data"
+	"github.com/Digital-Voting-Team/auth-service/jwt"
 	"gitlab.com/distributed_lab/logan/v3/errors"
 	"net/http"
 	"strings"

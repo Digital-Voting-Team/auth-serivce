@@ -1,7 +1,7 @@
 package helpers
 
 import (
-	"github.com/Digital-Voting-Team/auth-serivce/resources"
+	"github.com/Digital-Voting-Team/auth-service/resources"
 	"net/http"
 	"strconv"
 

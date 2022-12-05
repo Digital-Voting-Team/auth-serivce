@@ -1,13 +1,13 @@
 package service
 
 import (
-	"github.com/Digital-Voting-Team/auth-serivce/internal/data/pg"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/service/handlers/jwt"
-	login "github.com/Digital-Voting-Team/auth-serivce/internal/service/handlers/login"
-	reg "github.com/Digital-Voting-Team/auth-serivce/internal/service/handlers/register"
-	user "github.com/Digital-Voting-Team/auth-serivce/internal/service/handlers/user"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/service/helpers"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/service/middleware"
+	"github.com/Digital-Voting-Team/auth-service/internal/data/pg"
+	"github.com/Digital-Voting-Team/auth-service/internal/service/handlers/jwt"
+	login "github.com/Digital-Voting-Team/auth-service/internal/service/handlers/login"
+	reg "github.com/Digital-Voting-Team/auth-service/internal/service/handlers/register"
+	user "github.com/Digital-Voting-Team/auth-service/internal/service/handlers/user"
+	"github.com/Digital-Voting-Team/auth-service/internal/service/helpers"
+	"github.com/Digital-Voting-Team/auth-service/internal/service/middleware"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
 	"gitlab.com/distributed_lab/ape"

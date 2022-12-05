@@ -1,8 +1,8 @@
 package cli
 
 import (
-	"github.com/Digital-Voting-Team/auth-serivce/internal/assets"
-	"github.com/Digital-Voting-Team/auth-serivce/internal/config"
+	"github.com/Digital-Voting-Team/auth-service/internal/assets"
+	"github.com/Digital-Voting-Team/auth-service/internal/config"
 
 	migrate "github.com/rubenv/sql-migrate"
 	"gitlab.com/distributed_lab/logan/v3/errors"
