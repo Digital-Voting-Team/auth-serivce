@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"github.com/Digital-Voting-Team/auth-serivce/internal/data"
 	"github.com/Digital-Voting-Team/auth-serivce/internal/service/helpers"
 	requests "github.com/Digital-Voting-Team/auth-serivce/internal/service/requests/login"
 	validation "github.com/go-ozzo/ozzo-validation/v4"
@@ -43,9 +44,14 @@ func LogoutUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = helpers.JWTsQ(r).Delete(jwt.ID)
+	jwtSample := data.JWT{
+		UserID: foundUser.ID,
+		JWT:    "",
+	}
+
+	_, err = helpers.JWTsQ(r).FilterByUserID(foundUser.ID).Update(jwtSample)
 	if err != nil {
-		helpers.Log(r).WithError(err).Error("failed to delete jwt")
+		helpers.Log(r).WithError(err).Error("failed to insert/update new token")
 		ape.RenderErr(w, problems.InternalError())
 		return
 	}
