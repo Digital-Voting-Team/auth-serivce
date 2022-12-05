@@ -7,8 +7,7 @@ import (
 	reg "github.com/Digital-Voting-Team/auth-serivce/internal/service/handlers/register"
 	user "github.com/Digital-Voting-Team/auth-serivce/internal/service/handlers/user"
 	"github.com/Digital-Voting-Team/auth-serivce/internal/service/helpers"
-	"github.com/Digital-Voting-Team/auth-serivce/middleware"
-
+	"github.com/Digital-Voting-Team/auth-serivce/internal/service/middleware"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
 	"gitlab.com/distributed_lab/ape"
