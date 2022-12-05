@@ -15,7 +15,7 @@ import (
 )
 
 func LoginUser(w http.ResponseWriter, r *http.Request) {
-	request, err := requests.NewLoginUserRequest(r)
+	request, err := requests.NewAuthUserRequest(r)
 	if err != nil {
 		helpers.Log(r).WithError(err).Info("failed to parse Login User Request")
 		ape.Render(w, problems.BadRequest(err))

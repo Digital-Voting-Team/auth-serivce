@@ -14,7 +14,7 @@ type LoginUserRequest struct {
 	Data resources.User
 }
 
-func NewLoginUserRequest(r *http.Request) (LoginUserRequest, error) {
+func NewAuthUserRequest(r *http.Request) (LoginUserRequest, error) {
 	var request LoginUserRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {

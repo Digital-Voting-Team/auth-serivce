@@ -42,6 +42,7 @@ func (s *service) router() chi.Router {
 
 	r.Group(func(r chi.Router) {
 		r.Post("/login", login.LoginUser)
+		r.Post("/logout", login.LogoutUser)
 		r.Post("/jwt/login", jwt.LoginJWT)
 		r.Post("/register", reg.RegisterUser)
 	})
