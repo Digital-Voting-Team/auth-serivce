@@ -18,7 +18,7 @@ func ParseJwtResponse(r *http.Response) (*resources.JwtResponse, error) {
 }
 
 func ValidateToken(token, endpoint string) (*resources.JwtResponse, error) {
-	req, err := http.NewRequest("GET", endpoint, nil)
+	req, err := http.NewRequest("POST", endpoint, nil)
 	if err != nil {
 		return nil, errors.Wrap(err, "Unable to build new request")
 	}
